@@ -41,6 +41,18 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="SHL Assessment Recommender", lifespan=lifespan)
 
 
+@app.get("/")
+def root() -> dict:
+    return {
+        "name": "SHL Assessment Recommender",
+        "endpoints": {
+            "health": "GET /health",
+            "chat": "POST /chat",
+            "docs": "GET /docs",
+        },
+    }
+
+
 @app.get("/health", response_model=HealthResponse)
 def health() -> HealthResponse:
     return HealthResponse(status="ok")
