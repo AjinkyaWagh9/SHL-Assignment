@@ -90,9 +90,11 @@ def respond(messages: list[Message]) -> ChatResponse:
     full_user = behavior + "\n\n" + user_block
 
     llm = get_llm()
-    # 600 is enough for ~150 words of justification + 8 recommendations of structured JSON.
-    # Trimming from 900 saves ~1-2s of tail latency on the main call.
-    raw = llm.complete(system=system, user=full_user, max_tokens=600)
+    # 900 covers a worst-case 10-item shortlist with full justification without truncating
+    # mid-JSON (which silently drops items and tanks recall on traces with long
+    # expected-name lists like C5/C7). gpt-4o is fast enough that the extra cap costs
+    # negligible latency in practice.
+    raw = llm.complete(system=system, user=full_user, max_tokens=900)
 
     try:
         parsed = parse_llm_json(raw)

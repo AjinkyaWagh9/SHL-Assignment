@@ -38,18 +38,34 @@ def parse_llm_json(raw: str) -> dict:
     return json.loads(text[first : last + 1])
 
 
+def _normalize(s: str) -> str:
+    return " ".join(s.split()).lower()
+
+
 def validate_recommendations(items: list[dict]) -> list[Recommendation]:
-    """Drop any item not in the catalog. Force exact `url` and `test_type` from catalog."""
+    """Drop any item not in the catalog. Force exact `url` and `test_type` from catalog.
+
+    Lookup order: exact name → normalized name → URL. URL recovery saves near-miss
+    names like 'Microsoft Excel 365 (New)' that the LLM occasionally synthesizes by
+    analogy with the canonical 'Microsoft Excel 365 - Essentials (New)' but where
+    the URL slug it emits happens to match a real catalog entry.
+    """
     catalog_by_name = get_catalog_by_name()
-    catalog_lookup_ci = {k.lower(): v for k, v in catalog_by_name.items()}
+    catalog_lookup_norm = {_normalize(k): v for k, v in catalog_by_name.items()}
+    catalog_by_url = {v["url"]: v for v in catalog_by_name.values()}
 
     out: list[Recommendation] = []
     seen_urls: set[str] = set()
     for it in items:
         name = (it.get("name") or "").strip()
-        if not name:
+        url = (it.get("url") or "").strip()
+        if not name and not url:
             continue
-        catalog_item = catalog_by_name.get(name) or catalog_lookup_ci.get(name.lower())
+        catalog_item = (
+            catalog_by_name.get(name)
+            or catalog_lookup_norm.get(_normalize(name))
+            or catalog_by_url.get(url)
+        )
         if not catalog_item:
             continue  # not in catalog → drop, no exceptions
         if catalog_item["url"] in seen_urls:
