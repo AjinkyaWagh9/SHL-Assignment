@@ -1,0 +1,19 @@
+{
+  "id": "C4",
+  "persona_facts": {
+    "role": "graduate financial analysts",
+    "seniority": "junior / final-year students",
+    "needs": ["numerical reasoning", "finance knowledge", "situational judgement"]
+  },
+  "expected_names": [
+    "SHL Verify Interactive – Numerical Reasoning",
+    "Financial Accounting (New)",
+    "Basic Statistics (New)",
+    "Graduate Scenarios",
+    "Occupational Personality Questionnaire OPQ32r"
+  ],
+  "behavior_notes": [
+    "User is specific — recommend on turn 1 (no clarify needed).",
+    "Refine: add Graduate Scenarios when user asks for situational judgement."
+  ]
+}

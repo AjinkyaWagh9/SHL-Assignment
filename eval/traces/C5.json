@@ -1,0 +1,19 @@
+{
+  "id": "C5",
+  "persona_facts": {
+    "context": "restructuring + annual talent audit",
+    "audience": "Sales organization (re-skilling)",
+    "scope": "skills + personality + sales-specific reports"
+  },
+  "expected_names": [
+    "Global Skills Assessment",
+    "Global Skills Development Report",
+    "Occupational Personality Questionnaire OPQ32r",
+    "OPQ MQ Sales Report",
+    "Sales Transformation 2.0 - Individual Contributor"
+  ],
+  "behavior_notes": [
+    "Recommend full audit stack on turn 1.",
+    "Compare turn (OPQ vs OPQ MQ Sales Report) keeps the existing shortlist."
+  ]
+}

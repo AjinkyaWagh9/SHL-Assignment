@@ -1,0 +1,29 @@
+# Render blueprint. Use `env: docker` because sentence-transformers + torch
+# is more reliable to install via our pinned Dockerfile than via Render's
+# native Python builder (which sometimes resolves a different torch wheel).
+#
+# NOTE: Render's free tier has 512MB RAM. sentence-transformers + torch +
+# FAISS will OOM there. Use the `starter` plan (512MB-1GB depending on tier)
+# or higher; `standard` (2GB) is safest.
+services:
+  - type: web
+    name: shl-assessment-recommender
+    env: docker
+    plan: starter
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: SHL_LLM_PROVIDER
+        value: fallback
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: HF_HOME
+        value: /app/.cache/huggingface

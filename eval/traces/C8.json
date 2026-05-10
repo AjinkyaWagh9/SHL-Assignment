@@ -1,0 +1,19 @@
+{
+  "id": "C8",
+  "persona_facts": {
+    "role": "admin assistants",
+    "screen_for": ["Excel", "Word"],
+    "constraint": "quick screen, but open to simulation if it captures capability"
+  },
+  "expected_names": [
+    "Microsoft Excel 365 - Essentials (New)",
+    "Microsoft Word 365 - Essentials (New)",
+    "MS Excel (New)",
+    "MS Word (New)",
+    "Occupational Personality Questionnaire OPQ32r"
+  ],
+  "behavior_notes": [
+    "Initial recommendation is knowledge-only (fast). Refine: add simulation variants when user opens to it.",
+    "OPQ32r is a default add — agent flags it as default, can be dropped."
+  ]
+}

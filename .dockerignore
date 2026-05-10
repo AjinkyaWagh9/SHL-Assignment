@@ -1,0 +1,46 @@
+# Secrets & local state
+.env
+.env.*
+!.env.example
+
+# VCS
+.git
+.gitignore
+.gitattributes
+
+# Python bytecode & venvs
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.venv
+venv
+env
+
+# Editor / OS
+.DS_Store
+.idea
+.vscode
+*.swp
+
+# Dev-only directories — not needed at runtime
+eval/
+tests/
+docs/
+
+# Bulky reference material that ships with the repo
+GenAI_SampleConversations*
+SHLprojectoverview*
+*.zip
+
+# Build / cache artifacts
+.cache
+.mypy_cache
+.pytest_cache
+.ruff_cache
+htmlcov
+.coverage
+*.egg-info
+
+# CI / deploy meta
+.github

@@ -1,0 +1,41 @@
+# Fly.io config. Replace `app` with your actual app name after `fly launch`.
+# `auto_stop_machines = true` parks the VM when idle to save cost — first
+# request after sleep eats the SentenceTransformer warmup (~10s).
+app = "shl-assessment-recommender"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  SHL_LLM_PROVIDER = "fallback"
+  OPENAI_MODEL = "gpt-4o-mini"
+  HF_HOME = "/app/.cache/huggingface"
+  PORT = "8000"
+
+# Mount a small volume so the MiniLM weights survive restarts. Without this,
+# every cold boot redownloads ~90MB from Hugging Face.
+# Create with: fly volumes create hf_cache --size 1 --region iad
+[[mounts]]
+  source = "hf_cache"
+  destination = "/app/.cache/huggingface"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+  [[http_service.checks]]
+    grace_period = "30s"
+    interval = "15s"
+    method = "GET"
+    timeout = "5s"
+    path = "/health"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "1gb"
+  cpus = 1

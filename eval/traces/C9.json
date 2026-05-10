@@ -1,0 +1,24 @@
+{
+  "id": "C9",
+  "persona_facts": {
+    "role": "Senior Full-Stack Engineer",
+    "seniority": "senior IC",
+    "stack_primary": ["Core Java", "Spring", "SQL"],
+    "stack_secondary": ["AWS", "Docker"],
+    "responsibility": "owns end-to-end microservice delivery, mentors mid-level engineers"
+  },
+  "expected_names": [
+    "Core Java (Advanced Level) (New)",
+    "Spring (New)",
+    "SQL (New)",
+    "Amazon Web Services (AWS) Development (New)",
+    "Docker (New)",
+    "SHL Verify Interactive G+",
+    "Occupational Personality Questionnaire OPQ32r"
+  ],
+  "behavior_notes": [
+    "Multi-turn refinement: drop REST, add AWS + Docker.",
+    "User pushes back on Verify G+ — agent defends it but offers user the call.",
+    "Pick Java (Advanced Level) over Entry-Level for senior IC."
+  ]
+}

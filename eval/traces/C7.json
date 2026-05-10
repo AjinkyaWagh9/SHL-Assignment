@@ -1,0 +1,20 @@
+{
+  "id": "C7",
+  "persona_facts": {
+    "role": "bilingual healthcare admin staff",
+    "location": "South Texas",
+    "language_constraint": "Spanish-capable for personality, English-fluent for knowledge",
+    "compliance": "HIPAA-relevant"
+  },
+  "expected_names": [
+    "HIPAA (Security)",
+    "Medical Terminology (New)",
+    "Microsoft Word 365 - Essentials (New)",
+    "Dependability and Safety Instrument (DSI)",
+    "Occupational Personality Questionnaire OPQ32r"
+  ],
+  "behavior_notes": [
+    "Catalog gap (Spanish HIPAA test missing) — agent names it and proposes hybrid.",
+    "Refuse legal/regulatory question, redirect to assessment selection."
+  ]
+}

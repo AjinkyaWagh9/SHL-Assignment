@@ -1,0 +1,18 @@
+{
+  "id": "C1",
+  "persona_facts": {
+    "audience": "senior leadership / CXOs / director-level",
+    "experience": "15+ years",
+    "purpose": "selection — comparing candidates against a leadership benchmark",
+    "test_type_focus": "personality (OPQ family)"
+  },
+  "expected_names": [
+    "Occupational Personality Questionnaire OPQ32r",
+    "OPQ Universal Competency Report 2.0",
+    "OPQ Leadership Report"
+  ],
+  "behavior_notes": [
+    "Turn 1 must clarify (audience unknown).",
+    "After audience + purpose are known, recommend OPQ-family items."
+  ]
+}

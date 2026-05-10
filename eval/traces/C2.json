@@ -1,0 +1,20 @@
+{
+  "id": "C2",
+  "persona_facts": {
+    "role": "senior Rust engineer",
+    "domain": "high-performance networking infrastructure",
+    "seniority": "senior IC",
+    "wants_cognitive_layer": true
+  },
+  "expected_names": [
+    "Smart Interview Live Coding",
+    "Linux Programming (General)",
+    "Networking and Implementation (New)",
+    "SHL Verify Interactive G+",
+    "Occupational Personality Questionnaire OPQ32r"
+  ],
+  "behavior_notes": [
+    "Catalog has no Rust-specific test — agent must name the gap and propose closest fit.",
+    "Verify G+ added when user asks about cognitive."
+  ]
+}

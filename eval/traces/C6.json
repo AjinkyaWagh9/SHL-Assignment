@@ -1,0 +1,16 @@
+{
+  "id": "C6",
+  "persona_facts": {
+    "role": "plant operators",
+    "industry": "chemical facility / industrial",
+    "priority": "safety, dependability, procedure compliance"
+  },
+  "expected_names": [
+    "Manufac. & Indust. - Safety & Dependability 8.0",
+    "Workplace Health and Safety (New)"
+  ],
+  "behavior_notes": [
+    "Initial shortlist may include DSI; user confirms industrial context, agent narrows to bundled 8.0.",
+    "Compare turn (DSI vs Safety & Dependability 8.0) explains standalone vs bundled."
+  ]
+}

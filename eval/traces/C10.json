@@ -1,0 +1,18 @@
+{
+  "id": "C10",
+  "persona_facts": {
+    "role": "graduate management trainees",
+    "seniority": "junior / recent graduates",
+    "battery": ["cognitive", "personality", "situational judgement"],
+    "constraint": "candidates complain OPQ32r takes too long"
+  },
+  "expected_names": [
+    "SHL Verify Interactive G+",
+    "Graduate Scenarios"
+  ],
+  "behavior_notes": [
+    "Initial recommendation has all three layers (Verify G+, OPQ32r, Graduate Scenarios).",
+    "User asks for shorter personality test — agent declines (no shorter alternative).",
+    "User drops OPQ32r → final shortlist is just Verify G+ + Graduate Scenarios."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "C3",
+  "persona_facts": {
+    "role": "entry-level contact centre agents",
+    "volume": "500 candidates",
+    "channel": "inbound calls",
+    "language": "English (USA)",
+    "accent": "US"
+  },
+  "expected_names": [
+    "SVAR - Spoken English (US) (New)",
+    "Contact Center Call Simulation (New)",
+    "Entry Level Customer Serv-Retail & Contact Center",
+    "Customer Service Phone Simulation"
+  ],
+  "behavior_notes": [
+    "Must clarify language and accent before recommending (drives SVAR variant).",
+    "Compare turn explains old bundled solution vs new standalone simulation."
+  ]
+}

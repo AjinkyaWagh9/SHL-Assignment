@@ -1,0 +1,24 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build artifacts that can be regenerated
+data/vector_index/*.npy
+data/vector_index/*.pkl
+data/vector_index/*.json
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
