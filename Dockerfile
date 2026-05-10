@@ -9,34 +9,44 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Cache Hugging Face weights inside /app so platforms with persistent disks
-# (Fly volumes, Railway volumes) reuse the ~90MB MiniLM download across boots.
+# Hugging Face Spaces runs containers as UID 1000 with HOME=/home/user. Setting
+# this up early lets the same image work on Spaces, Render, Fly, and Railway
+# without per-platform tweaks.
+RUN useradd --create-home --uid 1000 --shell /bin/bash user
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    HF_HOME=/app/.cache/huggingface \
-    TRANSFORMERS_CACHE=/app/.cache/huggingface \
-    SENTENCE_TRANSFORMERS_HOME=/app/.cache/huggingface/sentence-transformers
+    HOME=/home/user \
+    HF_HOME=/home/user/.cache/huggingface \
+    TRANSFORMERS_CACHE=/home/user/.cache/huggingface \
+    SENTENCE_TRANSFORMERS_HOME=/home/user/.cache/huggingface/sentence-transformers \
+    PYTHONPATH=/home/user/app
 
-WORKDIR /app
+WORKDIR /home/user/app
 
 # Install deps first for better layer caching.
-COPY requirements.txt .
+COPY --chown=user:user requirements.txt .
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt
 
 # Copy app source.
-COPY . .
+COPY --chown=user:user . .
 
-# Non-root user. Create after copy so we can chown the cache dir.
-RUN useradd --create-home --shell /bin/bash app \
-    && mkdir -p /app/.cache/huggingface \
-    && chown -R app:app /app
-USER app
+# Bake the catalog + vector index into the image. Building at image-build time
+# means cold-start = load numpy arrays from disk (fast), not download MiniLM
+# and re-encode 377 items. Run as root, then chown the resulting files so the
+# unprivileged user can read them.
+RUN python data/build_catalog.py \
+    && python retriever/embeddings.py \
+    && mkdir -p /home/user/.cache/huggingface \
+    && chown -R user:user /home/user
 
-EXPOSE 8000
+USER user
 
-# Bind to PORT if the platform injects it (Render/Railway/Heroku style),
-# else default to 8000 (Fly forwards 8080 -> internal_port via fly.toml).
-CMD ["sh", "-c", "uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# 7860 is Hugging Face Spaces' default app port. Render/Railway inject $PORT
+# and will override; Fly's fly.toml [env] sets PORT=8000 explicitly.
+EXPOSE 7860
+
+CMD ["sh", "-c", "uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-7860}"]

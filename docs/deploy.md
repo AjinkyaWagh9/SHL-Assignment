@@ -97,7 +97,56 @@ in `messages`.
 
 ---
 
-## 3. Deploy to Render (recommended for the free tier)
+## 3. Deploy to Hugging Face Spaces (recommended — free, 16 GB RAM)
+
+Hugging Face Spaces is the cheapest workable host for this app. The free CPU Basic
+tier gives 2 vCPU and 16 GB RAM, which is more than enough for sentence-transformers
++ FAISS, and the public URL is shareable in the submission form.
+
+The `Dockerfile` and the YAML frontmatter in `README.md` are already configured for
+Spaces — no per-platform tweaks needed.
+
+### Steps
+
+1. Sign in at [huggingface.co](https://huggingface.co) and click **New > Space**.
+2. Name it (e.g. `shl-assessment-recommender`), set **License** to whatever you prefer,
+   choose **Docker** as the SDK, and pick **CPU Basic — Free**.
+3. **Do not** initialise with a template; you'll push the existing repo.
+4. Add the new Space as a git remote and push:
+
+   ```bash
+   # Replace <your-username> with your HF handle.
+   git remote add hf https://huggingface.co/spaces/<your-username>/shl-assessment-recommender
+   git push hf main
+   ```
+
+   You'll be prompted for a HF write token (create one at
+   [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) with the
+   **Write** scope; paste it as the password).
+5. In the Space's **Settings > Variables and secrets**, add:
+   - `SHL_LLM_PROVIDER` = `fallback` (or `groq` / `gemini` / `openai`)
+   - `GROQ_API_KEY` = `gsk_…` (mark as **Secret**)
+   - `GEMINI_API_KEY` = `…` (optional, for failover)
+   - `OPENAI_API_KEY` = `sk-…` (optional)
+6. The Space rebuilds automatically. First build takes 8–12 min (PyTorch + FAISS wheels
+   plus the in-image catalog/index bake). Subsequent builds are faster thanks to layer
+   caching.
+
+### Caveats
+
+- **Sleeps after ~48 h idle** on the free tier. Cold-start is ~10–15 s once the image
+  is built (the index is baked in, so there's no MiniLM download on boot).
+- The Space exposes the FastAPI app at `https://<your-username>-shl-assessment-recommender.hf.space`.
+  Both `/health` and `/chat` work directly off that root.
+- HF Spaces routes through their proxy; CORS is handled at the platform layer for the
+  Space's own domain. If you want to call `/chat` from a different frontend, add the
+  CORS middleware shown in section 7.
+- The frontmatter in `README.md` (`sdk: docker`, `app_port: 7860`) is what tells HF to
+  build from the Dockerfile and route traffic to port 7860. Don't remove it.
+
+---
+
+## 4. Deploy to Render
 
 Render is the simplest free option for this app and the path the included `render.yaml`
 is tuned for.
@@ -124,7 +173,7 @@ is tuned for.
 
 ---
 
-## 4. Deploy to Fly.io
+## 5. Deploy to Fly.io
 
 Fly's free allowance covers a small `shared-cpu-1x` VM with 1 GB RAM, which fits.
 
@@ -153,7 +202,7 @@ The included `fly.toml` artifact pins the right port (`8000`) and a generous
 
 ---
 
-## 5. Deploy to Railway
+## 6. Deploy to Railway
 
 Railway is the lowest-friction option if you already have a credit balance.
 
@@ -169,7 +218,7 @@ Railway does not sleep, but the free trial is time-limited; check current pricin
 
 ---
 
-## 6. Smoke testing the public endpoint
+## 7. Smoke testing the public endpoint
 
 Replace `https://your-app.example.com` with whatever the host gave you.
 
@@ -213,7 +262,7 @@ scope. The `recommendations` array may be empty and `end_of_conversation` should
 
 ---
 
-## 7. Troubleshooting
+## 8. Troubleshooting
 
 | Symptom | Likely cause | Fix |
 |---|---|---|

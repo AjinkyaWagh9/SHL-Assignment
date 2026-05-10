@@ -1,3 +1,13 @@
+---
+title: SHL Assessment Recommender
+emoji: 🧪
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # SHL Assessment Recommender
 
 Conversational agent over the SHL Individual Test Solutions catalog. Built for the SHL
