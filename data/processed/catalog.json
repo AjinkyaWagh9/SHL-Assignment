@@ -4883,7 +4883,7 @@
   },
   {
     "entity_id": "4207",
-    "name": "Microsoft \n    365(New)",
+    "name": "Microsoft Excel 365 (New)",
     "url": "https://www.shl.com/products/product-catalog/view/microsoft-excel-365-new/",
     "test_type": "K,S",
     "keys": [
@@ -4903,7 +4903,7 @@
     "duration": "35 minutes",
     "remote": "yes",
     "adaptive": "no",
-    "text_for_embedding": "Microsoft \n    365(New) | The Microsoft Excel 365 simulation evaluates ability to perform certain operations in a simulated environment of MS Excel, and includes the following topics: Applying Formulas and Functions, Creating and Analyzing Data, Formatting Cells, Data, and Content, Managing Workbooks and Worksheets, Presenting Data Visually, Printing and Views, and Sharing, Maintaining, and Securing Workbooks. | Test types: Knowledge & Skills, Simulations | Job levels: Entry-Level | Duration: 35 minutes | Languages: English (USA)"
+    "text_for_embedding": "Microsoft Excel 365 (New) | The Microsoft Excel 365 simulation evaluates ability to perform certain operations in a simulated environment of MS Excel, and includes the following topics: Applying Formulas and Functions, Creating and Analyzing Data, Formatting Cells, Data, and Content, Managing Workbooks and Worksheets, Presenting Data Visually, Printing and Views, and Sharing, Maintaining, and Securing Workbooks. | Test types: Knowledge & Skills, Simulations | Job levels: Entry-Level | Duration: 35 minutes | Languages: English (USA)"
   },
   {
     "entity_id": "3785",
