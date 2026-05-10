@@ -41,7 +41,7 @@ curl -X POST http://localhost:8000/chat \
   -d '{"messages":[{"role":"user","content":"Hiring a mid-level Java developer with Spring."}]}'
 ```
 
-## Layout (Jake Van Clief style)
+## Layout 
 
 ```
 shl-assessment-recommender/
