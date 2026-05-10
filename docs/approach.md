@@ -62,10 +62,10 @@ All probes pass: vague-turn-1 doesn't recommend, off-topic / legal / prompt-inje
 
 - Provider chain: OpenAI (paid) → Groq → Gemini, no in-provider retry (failover IS the retry).
 - Per-stage timeouts sum under 30 s with overhead.
-- Three LLM calls per recommend turn ≈ ~$0.0006 on gpt-4o-mini.
+- Three LLM calls per recommend turn ≈ ~$0.04 on gpt-4o (or ~$0.0006 on gpt-4o-mini).
 - Catalog + SentenceTransformer warmed in FastAPI lifespan so the first `/chat` after boot doesn't eat the encoder load.
 
 ## AI tools used
 
 - Claude Code (Opus 4.7) for design, refactoring, prompt iteration, and eval-loop debugging.
-- Production runtime uses gpt-4o-mini (primary) with structured `json_object` output. Groq Llama 3.3 70B and Gemini 2.5 Flash are configured as fallback providers; we did not need them during eval.
+- Production runtime uses OpenAI gpt-4o (primary) with structured `json_object` output. Groq Llama 3.3 70B and Gemini 2.5 Flash are configured as fallback providers and have been observed transparently absorbing OpenAI 429s during eval bursts.
